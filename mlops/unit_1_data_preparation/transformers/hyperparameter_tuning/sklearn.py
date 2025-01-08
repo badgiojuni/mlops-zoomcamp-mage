@@ -1,32 +1,40 @@
+from typing import Dict, Tuple, Union, Callable
+
+from pandas import Series
+from scipy.sparse._csr import csr_matrix
+from sklearn.base import BaseEstimator
+
+from mlops.utils.models.sklearn import load_class,tune_hyperparameters
+
+
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
-if 'test' not in globals():
-    from mage_ai.data_preparation.decorators import test
-
 
 @transformer
-def transform(data, *args, **kwargs):
-    """
-    Template code for a transformer block.
+def hyperparameter_tuning(
+    training_set: Dict[str, Union[Series, csr_matrix]],
+    model_class_name: str,
+    *args,
+    **kwargs
+) -> Tuple[
+    Dict[str, Union[bool, float, int, str]],
+    csr_matrix,
+    Series,
+    Callable[..., BaseEstimator],
+]:
 
-    Add more parameters to this function if this block has multiple parent blocks.
-    There should be one parameter for each output variable from each parent block.
+    X, X_train, X_val, y, y_train, y_val, _ = training_set['build']
 
-    Args:
-        data: The output from the upstream parent block
-        args: The output from any additional upstream blocks (if applicable)
+    model_class = load_class(model_class_name)
 
-    Returns:
-        Anything (e.g. data frame, dictionary, array, int, str, etc.)
-    """
-    # Specify your transformation logic here
+    hyperparameters = tune_hyperparameters(
+        model_class,
+        X_train=X_train,
+        y_train=y_train,
+        X_val=X_val,
+        y_val=y_val,
+        max_evaluations=kwargs.get('max_evaluations'),
+        random_state = kwargs.get('random_state'),
+    )
 
-    return data
-
-
-@test
-def test_output(output, *args) -> None:
-    """
-    Template code for testing the output of the block.
-    """
-    assert output is not None, 'The output is undefined'
+    return hyperparameters, X, y, dict(cls=model_class, name=model_class_name)

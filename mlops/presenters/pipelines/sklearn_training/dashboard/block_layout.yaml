@@ -33,6 +33,10 @@ blocks:
     name: Failed pipeline runs daily
     type: chart
     uuid: failed_pipeline_runs_daily_sklearn_training_v0
+  indigo_grimoire:
+    name: indigo grimoire
+    type: chart
+    uuid: indigo_grimoire
   pipeline_run_status_sklearn_training_g6:
     configuration:
       chart_style: horizontal
@@ -106,13 +110,17 @@ blocks:
     name: Trigger types
     type: chart
     uuid: trigger_types_sklearn_training_b4
+  verdant_scroll:
+    name: verdant scroll
+    type: chart
+    uuid: verdant_scroll
 layout:
 - - block_uuid: trigger_active_status_sklearn_training_m3
     width: 1
-  - block_uuid: trigger_types_sklearn_training_b4
-    width: 1
   - block_uuid: trigger_frequency_sklearn_training_j0
     width: 4
+  - block_uuid: trigger_types_sklearn_training_b4
+    width: 1
 - - block_uuid: completed_pipeline_runs_daily_sklearn_training_w6
     width: 1
   - block_uuid: pipeline_runs_daily_sklearn_training_b8
@@ -122,4 +130,8 @@ layout:
 - - block_uuid: failed_pipeline_runs_daily_sklearn_training_v0
     width: 1
 - - block_uuid: elemental_glacier
+    width: 1
+- - block_uuid: indigo_grimoire
+    width: 1
+- - block_uuid: verdant_scroll
     width: 1

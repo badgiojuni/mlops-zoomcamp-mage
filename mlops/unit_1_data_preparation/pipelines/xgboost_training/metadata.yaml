@@ -7,7 +7,8 @@ blocks:
     global_data_product:
       uuid: training_set
   downstream_blocks:
-  - hyperparameter_tuning/sklearn
+  - hyperparameter_tuning/xgboost
+  - xgboost
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -23,88 +24,74 @@ blocks:
   color: null
   configuration:
     file_source:
-      path: unit_1_data_preparation/markdowns/dynamic_blocks_info.md
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: markdown
-  name: Dynamic blocks info
-  retry_config: null
-  status: updated
-  timeout: null
-  type: markdown
-  upstream_blocks: []
-  uuid: dynamic_blocks_info
-- all_upstream_blocks_executed: true
-  color: teal
-  configuration:
-    dynamic: true
-    file_source:
-      path: unit_1_data_preparation/custom/load_models.py
+      path: unit_1_data_preparation/transformers/hyperparameter_tuning/xgboost.py
   downstream_blocks:
-  - hyperparameter_tuning/sklearn
+  - xgboost
+  - dashboard_data_source
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: Load models
-  retry_config: null
-  status: executed
-  timeout: null
-  type: custom
-  upstream_blocks: []
-  uuid: load_models
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_source:
-      path: unit_1_data_preparation/transformers/hyperparameter_tuning/sklearn.py
-  downstream_blocks:
-  - sklearn
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: hyperparameter tuning/sklearn
+  name: hyperparameter tuning/XGboost
   retry_config: null
   status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - training_set
-  - load_models
-  uuid: hyperparameter_tuning/sklearn
+  uuid: hyperparameter_tuning/xgboost
 - all_upstream_blocks_executed: true
   color: null
   configuration:
     file_source:
-      path: unit_1_data_preparation/data_exporters/sklearn.py
-  downstream_blocks: []
+      path: unit_1_data_preparation/data_exporters/xgboost.py
+  downstream_blocks:
+  - dashboard_data_source
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: sklearn
+  name: xgboost
   retry_config: null
   status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - hyperparameter_tuning/sklearn
-  uuid: sklearn
+  - training_set
+  - hyperparameter_tuning/xgboost
+  uuid: xgboost
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: unit_1_data_preparation/custom/dashboard_data_source.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: Dashboard data source
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - xgboost
+  - hyperparameter_tuning/xgboost
+  uuid: dashboard_data_source
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
 conditionals: []
-created_at: '2025-01-04 16:48:36.909295+00:00'
+created_at: '2025-01-08 09:04:36.066802+00:00'
 data_integration: null
-description: compare trainnig of different models
+description: Xgboost is a powerful boosted ensemble technique. its implementation
+  is efficient and scalable
 executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: sklearn training
+name: xgboost_training
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -113,11 +100,13 @@ settings:
   triggers: null
 spark_config: {}
 tags:
-- business critical
+- xgboost
+- decision tree
 type: python
-uuid: sklearn_training
+uuid: xgboost_training
 variables:
-  max_evaluations: 50
-  random_state: 42
+  early_stopping_rounds: 3
+  max_depth: 10
+  max_evaluations: 3
 variables_dir: /home/src/mage_data/unit_1_data_preparation
 widgets: []
