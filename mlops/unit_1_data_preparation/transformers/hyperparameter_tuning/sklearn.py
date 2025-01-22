@@ -3,6 +3,7 @@ from typing import Dict, Tuple, Union, Callable
 from pandas import Series
 from scipy.sparse._csr import csr_matrix
 from sklearn.base import BaseEstimator
+from mlops.utils.logging import track_experiment
 
 from mlops.utils.models.sklearn import load_class,tune_hyperparameters
 
@@ -33,6 +34,7 @@ def hyperparameter_tuning(
         y_train=y_train,
         X_val=X_val,
         y_val=y_val,
+        callback=lambda **opts: track_experiment(**opts, **kwargs),
         max_evaluations=kwargs.get('max_evaluations'),
         random_state = kwargs.get('random_state'),
     )

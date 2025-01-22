@@ -16,6 +16,14 @@ blocks:
     skip_render: false
     type: chart
     uuid: distribution_of_performance_metrics
+  friendly_crafter:
+    name: friendly crafter
+    type: chart
+    uuid: friendly_crafter
+  iridescent_silence:
+    name: iridescent silence
+    type: chart
+    uuid: iridescent_silence
   runs_by_model__pie_chart_:
     configuration:
       chart_type: pie chart
@@ -68,42 +76,12 @@ blocks:
     skip_render: false
     type: chart
     uuid: total_runs_by_model
-  training_metrics__rmse_:
-    configuration:
-      chart_type: time series line chart
-      design:
-        x_grid_lines_hidden: true
-        y_grid_lines_hidden: true
-        y_values_smooth: true
-      group_by:
-      - start_time
-      metrics:
-      - aggregation: average
-        column: rmse_Booster
-      - aggregation: average
-        column: rmse_LinearRegression
-      - aggregation: average
-        column: rmse_Lasso
-      time_interval: minute
-      x_axis_label_format: h:mm
-      x_grid_lines_hidden: true
-      y_axis_label_format: return parseFloat(value).toFixed(3)
-      y_grid_lines_hidden: true
-      y_values_smooth: true
-    data_source:
-      type: chart_code
-    error: null
-    name: Training metrics (RMSE)
-    name_new: Training metrics (RMSE)
-    skip_render: false
+  valorous_glade:
+    name: valorous glade
     type: chart
-    uuid: training_metrics__rmse_
+    uuid: valorous_glade
 layout:
-- - block_uuid: training_metrics__rmse_
-    height: 400
-    max_width_percentage: 50
-    width: 2
-  - block_uuid: time_series__mse_
+- - block_uuid: time_series__mse_
     height: 400
     width: 2
 - - block_uuid: total_runs_by_model
@@ -112,4 +90,10 @@ layout:
     max_width_percentage: 0
     width: 2
   - block_uuid: runs_by_model__pie_chart_
+    width: 1
+- - block_uuid: friendly_crafter
+    width: 1
+- - block_uuid: iridescent_silence
+    width: 1
+- - block_uuid: valorous_glade
     width: 1

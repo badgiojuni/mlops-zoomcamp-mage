@@ -117,7 +117,7 @@ tags:
 type: python
 uuid: sklearn_training
 variables:
-  max_evaluations: 50
+  max_evaluations: 10
   random_state: 42
 variables_dir: /home/src/mage_data/unit_1_data_preparation
 widgets: []
